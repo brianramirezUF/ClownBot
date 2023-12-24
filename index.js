@@ -23,7 +23,9 @@ for (const folder of commandFolders) {
 	for (const file of commandFiles) {
         //navigate to each js file
 		const filePath = path.join(commandsPath, file);
+		//console.log(filePath)
 		const command = require(filePath);
+		//console.log(command)
 		// Set a new item in the Collection with the key as the command name and the value as the exported module
 		if ('data' in command && 'execute' in command) {
 			client.commands.set(command.data.name, command);
@@ -39,9 +41,6 @@ for (const folder of commandFolders) {
 client.once(Events.ClientReady, readyClient => {
 	console.log(`Ready! Logged in as ${readyClient.user.tag}`);
 });
-
-// Log in to Discord with your client's token
-client.login(token)
 
 client.on(Events.InteractionCreate, async interaction => {
 	if (!interaction.isChatInputCommand()) return;
@@ -64,3 +63,6 @@ client.on(Events.InteractionCreate, async interaction => {
 		}
 	}
 });
+
+// Log in to Discord with your client's token
+client.login(token)
